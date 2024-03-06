@@ -8,16 +8,12 @@ public class ConstructionManager : MonoBehaviour
     private BuildingSO activeBuilding;
     private List<Building> buildingsInScene = new List<Building>();
 
-    private void Awake()
+    private void Start()
     {
         this.buildingList = Resources.Load<BuildingListSO>(typeof(BuildingListSO).Name);
         InitialiseHQ();
-        
-    }
-
-    void Start()
-    {
         OnMouseValidator.onTouch += TriggerBuildingConstruction;
+
     }
 
     private void InitialiseHQ()

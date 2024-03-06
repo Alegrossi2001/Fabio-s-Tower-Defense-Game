@@ -34,6 +34,7 @@ public class Building
             buildingPosition = this.buildingPosition,
             isHQ = this.isHQ
         });
+        Debug.Log("Building has been initialised. This building is HQ: " + this.isHQ);
     }
 
     public bool CalculateClosestTarget()

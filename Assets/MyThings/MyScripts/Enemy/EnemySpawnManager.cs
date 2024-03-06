@@ -17,6 +17,7 @@ public class EnemySpawnManager : MonoBehaviour
 
     private void WaveStarted(object sender, OnBuildingActionEventArgs e)
     {
+        Debug.Log("WAVE STARTED!");
         if(e.isHQ == true)
         {
             TriggerNewWave();
