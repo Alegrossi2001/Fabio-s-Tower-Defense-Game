@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,8 +26,18 @@ public class EnemyMovement : IEnemyMovement
 
     public void UpdateTargetToClosestBuilding(List<Transform> targets, Vector3 currentPosition)
     {
-        Vector3 newPosition = FindClosestObject(targets, currentPosition).position;
-        agent.SetDestination(newPosition);
+        try
+        {
+
+            Vector3 newPosition = FindClosestObject(targets, currentPosition).position;
+            Debug.Log(newPosition);
+            agent.SetDestination(newPosition);
+        }
+        catch (NullReferenceException e)
+        {
+            //
+            //TriggerGameOver()
+        }
     }
 
     private Transform FindClosestObject(List<Transform> targets, Vector3 currentPosition)

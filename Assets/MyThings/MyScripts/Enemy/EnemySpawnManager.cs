@@ -8,6 +8,7 @@ public class EnemySpawnManager : MonoBehaviour
 {
     [SerializeField] private LayerMask layerNumber;
     public static EventHandler<OnEnemySpawnEventArgs> OnEnemySpawn;
+    [SerializeField] private int numberOfSpawns; //temp value
     //Move this to a function
 
     private void Awake()
@@ -17,7 +18,6 @@ public class EnemySpawnManager : MonoBehaviour
 
     private void WaveStarted(object sender, OnBuildingActionEventArgs e)
     {
-        Debug.Log("WAVE STARTED!");
         if(e.isHQ == true)
         {
             TriggerNewWave();
@@ -25,7 +25,7 @@ public class EnemySpawnManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("HQ hasn't spawned correctly");
+            Debug.LogError("HQ hasn't spawned correctly");
         }
     }
 
@@ -35,7 +35,7 @@ public class EnemySpawnManager : MonoBehaviour
         Vector3 origin = this.transform.position;
         Vector3 direction = this.transform.forward;
         List<Transform> spawnPoints = handler.GetEnemySpawnPoints(origin, direction, layerNumber);
-        List<GameObject> enemiesForThisWave = handler.SpawnEnemyWave(spawnPoints, 2);
+        List<GameObject> enemiesForThisWave = handler.SpawnEnemyWave(spawnPoints, numberOfSpawns);
         OnEnemySpawn?.Invoke(this, new OnEnemySpawnEventArgs
         {
             enemies = enemiesForThisWave

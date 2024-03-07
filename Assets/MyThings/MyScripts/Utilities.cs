@@ -31,15 +31,17 @@ public static class Utilities
         return objectsToReturn;
     }
 
-    public static Transform GetClosestObject(List<Transform> targets, Vector3 currentPosition, float range=Mathf.Infinity)
+    public static Transform GetClosestObject(List<Transform> targets, Vector3 currentPosition, float range = Mathf.Infinity)
     {
         Transform closestObject = null;
-        foreach(Transform target in targets)
+        float distanceFromCurrentClosestTarget = Mathf.Infinity;
+        foreach (Transform target in targets)
         {
             float distance = Vector3.Distance(currentPosition, target.position);
-            if(distance < range)
+            if (distance < distanceFromCurrentClosestTarget && distance <= range)
             {
                 closestObject = target;
+                distanceFromCurrentClosestTarget = distance;
             }
         }
 
@@ -59,6 +61,24 @@ public static class Utilities
                 closestObject = target;
             }
         }
+        return closestObject;
+    }
+
+    public static Enemy GetClosestObject(List<Enemy> targets, Vector3 currentPosition)
+    {
+        Enemy closestObject = null;
+        float distanceFromCurrentClosestTarget = Mathf.Infinity;
+        foreach (Enemy target in targets)
+        {
+            Vector3 targetDistance = target.GetCurrentPosition();
+            float distanceFromThisTarget = Vector3.Distance(currentPosition, targetDistance);
+            if (distanceFromThisTarget < distanceFromCurrentClosestTarget)
+            {
+                distanceFromCurrentClosestTarget = distanceFromThisTarget;
+                closestObject = target;
+            }
+        }
+
         return closestObject;
     }
 }

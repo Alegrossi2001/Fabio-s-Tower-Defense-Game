@@ -6,10 +6,11 @@ public class Bullet
 {
     private int speed = 20;
     private GameObject bulletPrefab;
-    private Vector3 aim;
+    private Enemy aim;
     private Vector3 startingPosition;
+    private BulletMovementManager bulletMovement;
 
-    public Bullet(Vector3 startingPosition, Vector3 aim)
+    public Bullet(Vector3 startingPosition, Enemy aim)
     {
         this.startingPosition = startingPosition;
         this.aim = aim;
@@ -18,22 +19,20 @@ public class Bullet
         {
             Debug.LogError("Bullet:Constructor: Warning, bullet is null!");
         }
+        
         GenerateBullet();
     }
 
     private void GenerateBullet()
     {
-        Quaternion rotation = Quaternion.LookRotation(aim, Vector3.up);
+        Vector3 aimDirection = (aim.GetCurrentPosition() - startingPosition).normalized;
+        Debug.Log(aimDirection);
+        Quaternion rotation = Quaternion.LookRotation(aimDirection, Vector3.up);
         GameObject bullet = GameObject.Instantiate(bulletPrefab, startingPosition, rotation);
-        Rigidbody rb = bullet.GetComponent<Rigidbody>();
-        if(rb == null)
-        {
-            Debug.LogError("Bullet/GenerateBullet(): Rigidbody on bullet is null");
-            bullet.transform.Translate(Vector3.forward * speed * Time.deltaTime);
-        }
-        rb.AddForce(aim, ForceMode.Impulse);
-        
+        //Rigidbody rb = bullet.GetComponent<Rigidbody>();
+        bulletMovement = bullet.GetComponent<BulletMovementManager>();
+        bulletMovement.StartCoroutine(bulletMovement.UpdateLoopMoveTowardsTarget(aimDirection));
 
     }
-    
+
 }

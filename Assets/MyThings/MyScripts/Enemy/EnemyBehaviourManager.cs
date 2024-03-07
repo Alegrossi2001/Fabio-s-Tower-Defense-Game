@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -12,7 +13,6 @@ public class EnemyBehaviourManager : MonoBehaviour
     private Dictionary<Enemy, NavMeshAgent> enemyPositions = new Dictionary<Enemy, NavMeshAgent>();
     private List<Enemy> enemiesInTheScene = new List<Enemy>();
 
-    public static EventHandler<OnEnemySpawnEventArgs> OnEnemyDeath;
     public static EventHandler<OnEnemySpawnEventArgs> OnEnemySpawn;
 
     void Awake()
@@ -25,25 +25,29 @@ public class EnemyBehaviourManager : MonoBehaviour
 
     private void SpawnEnemyWithBehaviour(object sender, OnEnemySpawnEventArgs e)
     {
-        foreach(GameObject enemy in e.enemies)
+        StartCoroutine(WaitBeforeTriggeringWave(e.enemies));
+    }
+
+    private IEnumerator WaitBeforeTriggeringWave(List<GameObject> enemies)
+    {
+        yield return new WaitForSeconds(0.5f);
+        foreach (GameObject enemy in enemies)
         {
             Debug.Log(enemy + " is an enemy in the scene");
             NavMeshAgent agent = enemy.GetComponent<NavMeshAgent>();
             IEnemyMovement enemyMovement = new EnemyMovement(agent);
             Enemy enemyObject = new Enemy(enemy, enemyMovement, hq);
             enemyObject.InitialiseBehaviour();
-            enemyPositions[enemyObject] = agent;      
+            enemyPositions[enemyObject] = agent;
             enemiesInTheScene.Add(enemyObject);
         }
 
-        //questo codice non viene raggiunto
-
         OnEnemySpawn?.Invoke(this, new OnEnemySpawnEventArgs
         {
-            enemies = e.enemies,
+            enemies = enemies,
             enemiesObject = enemiesInTheScene,
-            
-        }) ;
+
+        });
     }
 
     private void RemoveEnemyFromScene(object sender, OnEnemySpawnEventArgs e)
@@ -54,7 +58,7 @@ public class EnemyBehaviourManager : MonoBehaviour
         {
             enemies.Add(enemy.assignedObject);
         }
-        OnEnemyDeath?.Invoke(this, new OnEnemySpawnEventArgs
+        OnEnemySpawn?.Invoke(this, new OnEnemySpawnEventArgs
         {
             enemies = enemies,
             enemiesObject = enemiesInTheScene
@@ -68,11 +72,15 @@ public class EnemyBehaviourManager : MonoBehaviour
             if(e.isHQ == true)
             {
                 hq = e.buildingPosition;
+                targetList.Add(hq);
             }
         }
-        targetList.Add(e.buildingPosition);
+        else
+        {
+            targetList.Add(e.buildingPosition);
+        }
         MoveToNearestTarget();
-
+        
     }
 
     private void RemoveBuildingFromPotentialTargets(object sender, OnBuildingActionEventArgs e)
@@ -80,14 +88,13 @@ public class EnemyBehaviourManager : MonoBehaviour
         if (targetList.Contains(e.buildingPosition))
         {
             targetList.Remove(e.buildingPosition);
-            Debug.Log("Building Destroyed, count is " + e.buildingPosition);
             MoveToNearestTarget();
         }
         else
         {
-            Debug.Log("Error, the list does not contain that building");
+            Debug.LogError("Error, the list does not contain that building");
         }
-        
+        GameManager.Instance.CheckForGameOver(hq);
     }
 
     private void MoveToNearestTarget()
@@ -96,11 +103,6 @@ public class EnemyBehaviourManager : MonoBehaviour
         {
             enemy.MoveToNewPosition(targetList, enemy.GetCurrentPosition());
         }
-    }
-
-    private bool CheckForHQOrGameOver()
-    {
-        return hq!= null;
     }
 
     private void Update()

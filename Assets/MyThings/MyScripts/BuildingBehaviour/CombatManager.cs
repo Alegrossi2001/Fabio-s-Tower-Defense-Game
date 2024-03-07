@@ -11,12 +11,12 @@ public class CombatManager : MonoBehaviour
     private List<Building> buildingsInTheScene = new List<Building>();
     private List<Enemy> enemiesInTheScene = new List<Enemy>();
 
-    private void Start()
+    private void Awake()
     {
         Building.OnBuildingAction += AddBuildingToDefensiveTargets;
         BuildingHealth.onBuildingDestruction += RemoveBuildingFromDefensiveTargets;
         EnemyBehaviourManager.OnEnemySpawn += HandleNewEnemyList;
-        //EnemyBehaviourManager.OnEnemyDeath+= HandleNewEnemyList;
+        EnemyBehaviourManager.OnEnemySpawn+= HandleNewEnemyList;
     }
 
     //move into an event driven function;
@@ -24,7 +24,6 @@ public class CombatManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.N))
         {
-            Debug.Log("N is pressed");
             foreach (Building building in buildingsInTheScene)
             {
                TriggerAttack(building);
@@ -59,7 +58,6 @@ public class CombatManager : MonoBehaviour
     private void HandleNewEnemyList(object sender, OnEnemySpawnEventArgs e)
     {
         enemiesInTheScene = e.enemiesObject;
-        Debug.Log("Enemy list is " + enemiesInTheScene);
         foreach(Building building in buildingsInTheScene)
         {
             TriggerAttack(building);
@@ -73,13 +71,13 @@ public class CombatManager : MonoBehaviour
             building.SetTargets(vector3List);
             if (building.CalculateClosestTarget() == true)
             {
-                building.ShootBulletAtClosestEnemy();
+                building.ShootBulletAtClosestEnemy(building.GetClosestEnemyTarget(enemiesInTheScene));
             }
 
         }
         catch(NullReferenceException e)
         {
-            Debug.Log("There are no buildings in the scene yet!");
+            Debug.LogError("There are no buildings in the scene yet!");
         }
     }
 

@@ -12,7 +12,7 @@ public class Building
     private float shootingDistance;
     public Vector3 currentTarget;
     private List<Vector3> targets = new List<Vector3>();
-    public Guid testGuidID;
+    private Enemy currentEnemyTarget;
 
     public Building(GameObject building, BuildingSO buildingSO, bool isHQ=false)
     {
@@ -22,7 +22,6 @@ public class Building
         this.shootingDistance = buildingSO.shootingDistance;
         building.GetComponent<BuildingCollisionHandler>().AssignBuilding(this);
         InitialiseBuilding();
-        testGuidID = Guid.NewGuid();
         
     }
 
@@ -34,7 +33,6 @@ public class Building
             buildingPosition = this.buildingPosition,
             isHQ = this.isHQ
         });
-        Debug.Log("Building has been initialised. This building is HQ: " + this.isHQ);
     }
 
     public bool CalculateClosestTarget()
@@ -65,17 +63,21 @@ public class Building
         }
     }
 
-    public void ShootBulletAtClosestEnemy()
+    public void ShootBulletAtClosestEnemy(Enemy enemy)
     {
         Vector3 offset = new Vector3(0, 1.75f, 0);
         Vector3 shootingPosition = buildingPosition.position + offset;
-        Bullet bullet = new Bullet(shootingPosition, currentTarget);
+        Bullet bullet = new Bullet(shootingPosition, enemy);
     }
 
     public void SetTargets(List<Vector3> targets)
     {
         this.targets = targets;
-        Debug.Log(testGuidID+ " : " + targets.Count);
+    }
+
+    public Enemy GetClosestEnemyTarget(List<Enemy> enemies)
+    {
+        return Utilities.GetClosestObject(enemies, buildingPosition.position);
     }
 
 
