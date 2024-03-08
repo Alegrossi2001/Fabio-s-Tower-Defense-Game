@@ -52,6 +52,8 @@ public class Enemy
             enemyObject = this,
             enemy = this.assignedObject
         });
+        EnemyObjectPooling.instance.ReturnEnemyToOriginalSpawnPoint(assignedObject);
+        
     }
 
 }

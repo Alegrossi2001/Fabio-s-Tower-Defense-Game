@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class EnemySpawnHandler
 {
-    private int radius = 100;
-    private int maxDistance = 1000;
+    private float radius = 10000;
+    private float maxDistance = 10000;
     private EnemyListSO enemyList;
 
     public EnemySpawnHandler()
@@ -25,17 +25,21 @@ public class EnemySpawnHandler
         return transforms;
     }
 
-    public List<GameObject> SpawnEnemyWave(List<Transform> spawnPositions, int enemiesToSpawn)
+    public List<EnemySpawnResult> SpawnEnemyWave(List<Transform> spawnPositions, int enemiesToSpawn)
     {
         List<Transform> enemySpawnPositions = Utilities.GetRandomListOfObjects(spawnPositions, enemiesToSpawn, true);
-        List<GameObject> enemies = new List<GameObject>();
+        List<EnemySpawnResult> enemies = new List<EnemySpawnResult>();
         foreach(Transform spawn in enemySpawnPositions)
         {
             Vector3 spawnPoint = spawn.position + new Vector3(0, 1.5f, 0); //offset;
             int randomIndex = new System.Random().Next(0, enemyList.EnemyTypes.Count);
             EnemySO randomEnemy = enemyList.EnemyTypes[randomIndex];
             GameObject enemyToSpawn = UnityEngine.Object.Instantiate(randomEnemy.enemyPrefab, spawnPoint, Quaternion.identity);
-            enemies.Add(enemyToSpawn);
+            enemies.Add(new EnemySpawnResult
+            {
+                enemy = enemyToSpawn,
+                spawnPoint = spawn
+            });
         }
         return enemies;
     }

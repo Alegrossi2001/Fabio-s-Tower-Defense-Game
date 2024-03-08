@@ -19,7 +19,7 @@ public class EnemyBehaviourManager : MonoBehaviour
     {
         Building.OnBuildingAction += AddBuildingToPotentialTargets;
         BuildingHealth.onBuildingDestruction += RemoveBuildingFromPotentialTargets;
-        EnemySpawnManager.OnEnemySpawn += SpawnEnemyWithBehaviour;
+        EnemyObjectPooling.OnEnemySpawn += SpawnEnemyWithBehaviour;
         Enemy.OnEnemyDeath += RemoveEnemyFromScene;
     }
 

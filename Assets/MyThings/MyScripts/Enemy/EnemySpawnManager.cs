@@ -7,13 +7,18 @@ using UnityEngine.AI;
 public class EnemySpawnManager : MonoBehaviour
 {
     [SerializeField] private LayerMask layerNumber;
-    public static EventHandler<OnEnemySpawnEventArgs> OnEnemySpawn;
     [SerializeField] private int numberOfSpawns; //temp value
+    [SerializeField] private GameObject parentObject;
+    private EnemyObjectPooling pool;
+   
     //Move this to a function
 
     private void Awake()
     {
         Building.OnBuildingAction += WaveStarted;
+        Vector3 origin = this.transform.position;
+        Vector3 direction = this.transform.forward;
+        pool = new EnemyObjectPooling(origin, direction, layerNumber, parentObject);
     }
 
     private void WaveStarted(object sender, OnBuildingActionEventArgs e)
@@ -31,14 +36,6 @@ public class EnemySpawnManager : MonoBehaviour
 
     private void TriggerNewWave()
     {
-        EnemySpawnHandler handler = new EnemySpawnHandler();
-        Vector3 origin = this.transform.position;
-        Vector3 direction = this.transform.forward;
-        List<Transform> spawnPoints = handler.GetEnemySpawnPoints(origin, direction, layerNumber);
-        List<GameObject> enemiesForThisWave = handler.SpawnEnemyWave(spawnPoints, numberOfSpawns);
-        OnEnemySpawn?.Invoke(this, new OnEnemySpawnEventArgs
-        {
-            enemies = enemiesForThisWave
-        });
+        pool.SpawnEnemyWave(numberOfSpawns);
     }
 }

@@ -19,7 +19,6 @@ public class EnemyCollisionHandler : MonoBehaviour
             BuildingCollisionHandler buildingcollided = collision.gameObject.GetComponent<BuildingCollisionHandler>();
             buildingcollided.RemoveHealth(50);
             enemyAssigned.EnemyIsDead();
-            Destroy(this.gameObject);
         }
     }
 }
