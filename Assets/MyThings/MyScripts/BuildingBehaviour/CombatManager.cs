@@ -2,33 +2,24 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using System.Linq;
-using Unity.VisualScripting;
+using Dypsloom.RhythmTimeline;
+using Dypsloom.RhythmTimeline.Core.Managers;
+using UnityEngine.Playables;
+using Dypsloom.RhythmTimeline.Core.Notes;
 
 public class CombatManager : MonoBehaviour
 {
     private List<Building> buildingsInTheScene = new List<Building>();
     private List<Enemy> enemiesInTheScene = new List<Enemy>();
-
+    [SerializeField] private RhythmProcessor processor;
     private void Awake()
     {
         Building.OnBuildingAction += AddBuildingToDefensiveTargets;
         BuildingHealth.onBuildingDestruction += RemoveBuildingFromDefensiveTargets;
         EnemyBehaviourManager.OnEnemySpawn += HandleNewEnemyList;
         EnemyBehaviourManager.OnEnemySpawn+= HandleNewEnemyList;
-    }
-
-    //move into an event driven function;
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            foreach (Building building in buildingsInTheScene)
-            {
-               TriggerAttack(building);
-            }
-        }
+        processor.OnNoteTriggerEvent += TestFunction;
     }
 
     private void AddBuildingToDefensiveTargets(object sender, OnBuildingActionEventArgs e)
@@ -81,5 +72,16 @@ public class CombatManager : MonoBehaviour
         }
     }
 
+    private void TestFunction(NoteTriggerEventData data)
+    {
+        if(data != null)
+        {
+            foreach (Building building in buildingsInTheScene)
+            {
+                TriggerAttack(building);
+            }
+
+        }
+    }
 
 }

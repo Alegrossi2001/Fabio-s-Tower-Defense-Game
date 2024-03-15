@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a4b964a6164491f88457180371f4312, type: 3}
+  m_Name: DefaultOffBeatMarkerSettings
+  m_EditorClassIdentifier: 
+  m_ID: 1
+  m_Normal: {fileID: 2800000, guid: 5138e93217a84ce428e33926e37b4d10, type: 3}
+  m_Collapsed: {fileID: 2800000, guid: 5138e93217a84ce428e33926e37b4d10, type: 3}
+  m_Plus: {fileID: 2800000, guid: 8cd7ff224b435d84fb0f336836b3a7e2, type: 3}
+  m_DefaultColor: {r: 0.6509434, g: 0.6509434, b: 0.6509434, a: 1}
+  m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}

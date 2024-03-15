@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4abc3ec68cc9fff4c92907207da1822e, type: 3}
+  m_Name: BasicScoreSettings
+  m_EditorClassIdentifier: 
+  m_AccuracyTable:
+  - name: Hit
+    miss: 0
+    breakChain: 0
+    percentageTheshold: 100
+    score: 100
+    icon: {fileID: 21300000, guid: 8535c62f58f63f74eaafa0aaf5ed413a, type: 3}
+    popPrefab: {fileID: 1310667963137135126, guid: 3c95827e34955244db6696e8adf01992,
+      type: 3}
+  - name: Miss
+    miss: 1
+    breakChain: 1
+    percentageTheshold: 0
+    score: -200
+    icon: {fileID: 21300000, guid: 456ec381f0138c747a98bdab948e00a7, type: 3}
+    popPrefab: {fileID: 4555798384473535493, guid: 45e1bd912bed3d745b139084d243c322,
+      type: 3}
+  m_RankTable:
+  - name: D
+    icon: {fileID: 21300000, guid: 1374998c58f94264aaea28681e274140, type: 3}
+    percentageTheshold: 0
+  - name: C
+    icon: {fileID: 21300000, guid: 1438770ceeca8d84ea1d34811497a866, type: 3}
+    percentageTheshold: 40
+  - name: B
+    icon: {fileID: 21300000, guid: 1b8a860c8a43ff74bb2ded8d1bc266f2, type: 3}
+    percentageTheshold: 60
+  - name: A
+    icon: {fileID: 21300000, guid: aad03137ff61dda44a4bec14b825dcac, type: 3}
+    percentageTheshold: 70
+  - name: S
+    icon: {fileID: 21300000, guid: 27e378c8ef2e31045a40fc078344c7ea, type: 3}
+    percentageTheshold: 80
+  - name: SS
+    icon: {fileID: 21300000, guid: 43ad687deb071794b8f2156a81c20709, type: 3}
+    percentageTheshold: 90
+  - name: SSS
+    icon: {fileID: 21300000, guid: ec7792da2b735ea42858f31a8c6cc94d, type: 3}
+    percentageTheshold: 99

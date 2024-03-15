@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a0313bfa62342a0a831dde59d6a1764, type: 3}
+  m_Name: RhythmTimelineAsset
+  m_EditorClassIdentifier: 
+  m_Version: 0
+  m_Tracks: []
+  m_FixedDuration: 0
+  m_EditorSettings:
+    m_Framerate: 60
+    m_ScenePreview: 1
+  m_DurationMode: 0
+  m_MarkerTrack: {fileID: 0}
+  m_Bpm: 120
+  m_OverrideNoteSpeed: 0
+  m_NoteSpeed: 3
+  m_FullName: 
+  m_Authour: 
+  m_Description: 
+  m_Dificulty: 0
+  m_AudioClip: {fileID: 0}
+  m_StartScore: 0
+  m_MaxScore: -1
+  m_MinScore: 0
+  m_PreventMaxScoreOvershoot: 0
+  m_PreventMinScoreOvershoot: 0
+  m_HighScore:
+    m_NoteAccuracyIDHistogram: 
+    m_FullScore: 0
+    m_MaxChain: 0

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96f9abb4ac86e004bbeed9da8429af89, type: 3}
+  m_Name: CounterNote
+  m_EditorClassIdentifier: 
+  m_NotePrefab: {fileID: 6700462440123941034, guid: b08399c7bf36d4b49b66a297de88e5fb,
+    type: 3}
+  m_ClipDuration: 0
+  m_ScaledCrochetValue: 1.2
+  m_RhythmClipEditorSettings:
+    m_Left: {fileID: 0}
+    m_Center: {fileID: 2800000, guid: 5138e93217a84ce428e33926e37b4d10, type: 3}
+    m_Right: {fileID: 0}
+    m_Color: {r: 0.5764706, g: 0.40784314, b: 0.6901961, a: 1}
